@@ -28,5 +28,27 @@ The tool uses WebGL to render complex graphical scenes that increase GPU load. A
 3. Adjust the intensity level  
 4. Click "Start Test" or "Run Benchmark"  
 5. Monitor performance results in real time  
+## Use Cases
 
-## Project Structure
+- Test GPU performance before gaming  
+- Diagnose lag or crashes  
+- Benchmark hardware stability  
+- Evaluate system performance without installing software  
+
+## Requirements
+
+- Modern browser (Chrome, Firefox, Edge)  
+- WebGL support enabled  
+
+## License
+
+MIT License  
+
+## Author
+
+Bilal  
+https://devicexa.com/tools/gpu-stress-test/
+
+## Contact
+
+https://devicexa.com/tools/gpu-stress-test/
