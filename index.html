@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+<head>
+ <meta charset="utf-8">
+ <title>GPU Stress Test</title>
+ <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+
+
+
+<!-- GPU TESTER HTML -->
+<div id="gpu-tool">
+ <h1>GPU Stress Test</h1>
+ <p class="gpu-sub">Test your GPU performance with real-time WebGL rendering</p>
+
+ <!-- Warning -->
+ <div class="gpu-warning">
+ <div class="gpu-warning-icon"></div>
+ <div class="gpu-warning-text">
+ <strong>Warning:</strong>Your computer, browser, and other applications may lag, freeze, or crash during
+ the stress test.
+ Make sure to<strong>save any important work</strong>before proceeding.
+ </div>
+ </div>
+
+ <div class="gpu-wrap">
+
+ <!-- GPU info -->
+ <div class="gpu-info-bar">
+ <div class="gpu-info-icon"></div>
+ <div class="gpu-info-text">
+ <div class="gpu-info-name" id="gpu-name">Detecting GPU</div>
+ <div class="gpu-info-vendor" id="gpu-vendor"></div>
+ </div>
+ <div class="gpu-webgl-badge" id="gpu-webgl-ver">WebGL</div>
+ </div>
+
+ <!-- Running status panel -->
+ <div class="gpu-running-panel" id="gpu-run-panel">
+ <div class="gpu-run-title">Running Benchmark</div>
+ <div class="gpu-run-hint">(Please close all other apps and keep this tab focused for accurate results)</div>
+ <div class="gpu-run-grid">
+ <div class="gpu-run-row">
+ <span class="gpu-run-label">Type</span>
+ <span class="gpu-run-value">GPU</span>
+ </div>
+ <div class="gpu-run-row">
+ <span class="gpu-run-label">Status</span>
+ <span class="gpu-run-value accent" id="gpu-run-status">Running</span>
+ </div>
+ <div class="gpu-run-row">
+ <span class="gpu-run-label">Time Elapsed</span>
+ <span class="gpu-run-value orange" id="gpu-run-elapsed">00:00:00</span>
+ </div>
+ <div class="gpu-run-row">
+ <span class="gpu-run-label">Current FPS</span>
+ <span class="gpu-run-value accent" id="gpu-run-fps"></span>
+ </div>
+ </div>
+ <div id="gpu-progress-container">
+ <div class="gpu-run-prog-label">Progress<span id="gpu-run-pct" style="color:var(--accent)"></span></div>
+ <div class="gpu-run-prog-bg">
+ <div class="gpu-run-prog-fill" id="gpu-run-fill"></div>
+ </div>
+ </div>
+ </div>
+
+ <!-- Canvas -->
+ <div class="gpu-canvas-card">
+ <canvas id="gpu-canvas"></canvas>
+ <div class="gpu-idle-msg" id="gpu-idle-msg">
+ <div class="gpu-idle-icon"></div>
+ <div class="gpu-idle-txt">Press Start Test to begin</div>
+ </div>
+ <div class="gpu-overlay">
+ <div>
+ <div class="gpu-fps-badge" id="gpu-fps-badge" style="display:none">FPS</div>
+ <div class="gpu-fps-sub" id="gpu-fps-sub" style="display:none">FRAMES/SEC</div>
+ </div>
+ </div>
+ </div>
+
+ <!-- Stats -->
+ <div class="gpu-stats">
+ <div class="gpu-stat">
+ <div class="gpu-stat-val green" id="gpu-avg-fps"></div>
+ <div class="gpu-stat-lbl">Avg FPS</div>
+ </div>
+ <div class="gpu-stat">
+ <div class="gpu-stat-val" id="gpu-min-fps"></div>
+ <div class="gpu-stat-lbl">Min FPS</div>
+ </div>
+ <div class="gpu-stat">
+ <div class="gpu-stat-val green" id="gpu-max-fps"></div>
+ <div class="gpu-stat-lbl">Max FPS</div>
+ </div>
+ <div class="gpu-stat">
+ <div class="gpu-stat-val" id="gpu-tris">0</div>
+ <div class="gpu-stat-lbl">Count</div>
+ </div>
+ </div>
+
+ <!-- FPS Graph -->
+ <div class="gpu-graph-card">
+ <div class="gpu-graph-title">FPS History</div>
+ <canvas id="gpu-graph"></canvas>
+ </div>
+
+ <!-- Controls -->
+ <div class="gpu-controls">
+
+ <div class="gpu-ctrl-row">
+ <span class="gpu-ctrl-label">Test Mode</span>
+ <div class="gpu-modes" id="gpu-modes">
+ <button class="gpu-mode-btn active" data-mode="particles">Particles</button>
+ <button class="gpu-mode-btn" data-mode="triangles">Triangles</button>
+ <button class="gpu-mode-btn" data-mode="fractal">Fractal</button>
+ <button class="gpu-mode-btn" data-mode="plasma">Plasma</button>
+ </div>
+ </div>
+
+ <div class="gpu-ctrl-row">
+ <span class="gpu-ctrl-label">Intensity</span>
+ <input type="range" id="gpu-intensity" min="1" max="10" value="5" step="1" />
+ <span class="gpu-ctrl-val" id="gpu-int-val">5 / 10</span>
+ </div>
+ <div class="gpu-ctrl-row">
+ <span class="gpu-ctrl-label">Bench Time</span>
+ <select id="gpu-bench-time" class="gpu-select">
+ <option value="15">15 Seconds</option>
+ <option value="30" selected>30 Seconds</option>
+ <option value="60">60 Seconds</option>
+ <option value="120">120 Seconds</option>
+ </select>
+ </div>
+ <div class="gpu-btn-row">
+ <button class="gpu-btn gpu-btn-start" id="gpu-start">Start Test</button>
+ <button class="gpu-btn gpu-btn-stop" id="gpu-stop" style="display:none">Stop</button>
+ <button class="gpu-btn gpu-btn-bench" id="gpu-bench">Run Benchmark</button>
+ </div>
+ </div>
+
+ <!-- Benchmark result -->
+ <div class="gpu-bench-result" id="gpu-bench-result">
+ <div style="font-size:.8rem;color:var(--muted);margin-bottom:6px">Benchmark Score</div>
+ <div class="gpu-bench-score" id="gpu-bench-score">0</div>
+ <div class="gpu-bench-grade" id="gpu-bench-grade"></div>
+ <div class="gpu-bench-desc" id="gpu-bench-desc"></div>
+ </div>
+
+ </div><!-- /wrap -->
+
+ <div class="gpi-card">
+ <p><strong>How to Use the GPU Stress Test</strong><br>Select a test mode and intensity, then click<strong>Start Test</strong>. WebGL renders geometry/shaders to
+ load your GPU. Lower FPS = harder your GPU is working. Use<strong>Run Benchmark</strong>for a
+ standardised scored test with a progress timer.</p>
+ </div>
+</div><!-- /gpu-tool -->
+
+
+
+<script src="script.js"></script>
+</body>
+</html>
